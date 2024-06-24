@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type Payload = {
-  id: string;
-  val: any;
+  id?: string;
+  val?: any;
+  key?: any;
 };
 
 export interface State {
@@ -26,7 +27,7 @@ export const cartSlice = createSlice({
         state.cartItems.push({ ...action.payload, quantity: 1 });
       }
     },
-    updateCart: (state, action) => {
+    updateCart: (state, action: PayloadAction<Payload>) => {
       state.cartItems = state.cartItems.map((p) => {
         if (p.id === action.payload.id) {
           if (action.payload.key === "quantity") {
@@ -37,15 +38,19 @@ export const cartSlice = createSlice({
         return p;
       });
     },
-    removeFromCart: (state, action) => {
+    removeFromCart: (state, action: PayloadAction<Payload>) => {
       state.cartItems = state.cartItems.filter(
         (p) => p.id !== action.payload.id
       );
+    },
+    resetCart: (state) => {
+      state.cartItems = [];
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addToCart, updateCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, updateCart, removeFromCart, resetCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
