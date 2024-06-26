@@ -6,7 +6,7 @@ import { BiArrowBack } from "react-icons/bi";
 import Link from "next/link";
 
 type Props = {
-  products?: any[];
+  products: any[];
 };
 
 const HeroBanner = ({ products }: Props) => {
@@ -38,7 +38,7 @@ const HeroBanner = ({ products }: Props) => {
         {products?.map((p: any) => (
           <div>
             <img
-              src={`${p.attributes?.thumbnail?.url || "/slide-1.png"}`}
+              src={`${p?.attributes?.thumbnail?.url}`}
               className="aspect-[16/10] md:aspect-auto object-cover"
             />
             <Link href={`/product/${p?.attributes?.slug}`}>

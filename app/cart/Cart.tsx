@@ -24,7 +24,7 @@ const Cart = () => {
       setLoading(true);
 
       const stripe = await getStripe();
-      const res = await makePaymentRequest("/orders/create-stripe-session", {
+      const res = await makePaymentRequest("/orders", {
         products: cartItems,
       });
 
