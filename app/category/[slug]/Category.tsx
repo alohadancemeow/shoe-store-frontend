@@ -44,7 +44,7 @@ const Category = ({ category, products, slug }: Props) => {
         {/* products grid start */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-14 px-5 md:px-0">
           {data?.data?.map((product: any) => (
-            <ProductCard key={product?.id} prodcut={product} />
+            <ProductCard key={product?.id} product={product} />
           ))}
         </div>
         {/* products grid end */}

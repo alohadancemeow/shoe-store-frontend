@@ -7,6 +7,8 @@ import { fetchDataFromApi } from "@/utils/api";
 const Home = async () => {
   const products = await fetchDataFromApi("/products?populate=*");
 
+  console.log(products, "all products");
+
   return (
     <main>
       <HeroBanner />
@@ -24,7 +26,7 @@ const Home = async () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-14 px-5 md:px-0">
           {products?.data?.map((product: any) => (
-            <ProductCard key={product?.id} prodcut={product} />
+            <ProductCard key={product?.id} product={product} />
           ))}
         </div>
       </Wrapper>

@@ -33,7 +33,7 @@ const RelatedProducts = ({ relatedProduct }: Props) => {
         itemClass="px-[10px]"
       >
         {relatedProduct?.data?.map((product: any) => (
-          <ProductCard key={product?.id} prodcut={product} />
+          <ProductCard key={product?.id} product={product} />
         ))}
       </Carousel>
     </div>
