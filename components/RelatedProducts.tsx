@@ -5,10 +5,10 @@ import "react-multi-carousel/lib/styles.css";
 import ProductCard from "./ProductCard";
 
 type Props = {
-  relatedProduct?: any;
+  relatedProducts?: any[];
 };
 
-const RelatedProducts = ({ relatedProduct }: Props) => {
+const RelatedProducts = ({ relatedProducts }: Props) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -32,7 +32,7 @@ const RelatedProducts = ({ relatedProduct }: Props) => {
         containerClass="-mx-[10px]"
         itemClass="px-[10px]"
       >
-        {relatedProduct?.data?.map((product: any) => (
+        {relatedProducts?.map((product: any) => (
           <ProductCard key={product?.id} product={product} />
         ))}
       </Carousel>

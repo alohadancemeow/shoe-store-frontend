@@ -12,7 +12,7 @@ const ProdcutPage = async ({ params }: Props) => {
   const product = await fetchDataFromApi(
     `/products?populate=*&filters[slug][$eq]=${params.slug}`
   );
-  const relatedProduct = await fetchDataFromApi(
+  const relatedProducts = await fetchDataFromApi(
     `/products?populate=*&filters[slug][$ne]=${params.slug}`
   );
 
@@ -22,7 +22,7 @@ const ProdcutPage = async ({ params }: Props) => {
         <ToastContainer />
         <Wrapper>
           <ProductDetails product={product} />
-          <RelatedProducts relatedProduct={relatedProduct} />
+          <RelatedProducts relatedProducts={relatedProducts?.data} />
         </Wrapper>
       </div>
     </>

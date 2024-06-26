@@ -11,7 +11,7 @@ type Props = {
 };
 
 const StoreProvider = ({ children }: Props) => {
-  const [mounted, setMounted] = useState(false);
+  // const [mounted, setMounted] = useState(false);
   const storeRef = useRef<AppStore>();
 
   // Create the store instance the first time this renders
@@ -21,11 +21,11 @@ const StoreProvider = ({ children }: Props) => {
 
   const persistor = persistStore(storeRef.current);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setMounted(true);
+  // }, []);
 
-  if (!mounted) return null;
+  // if (!mounted) return null;
 
   return (
     <Provider store={storeRef.current}>

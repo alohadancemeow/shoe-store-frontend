@@ -14,7 +14,7 @@ import { VscChromeClose } from "react-icons/vsc";
 import { useAppSelector } from "@/store/store";
 
 type Props = {
-  categories?: any[];
+  categories: any[];
 };
 
 const Header = ({ categories }: Props) => {

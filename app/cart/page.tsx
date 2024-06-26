@@ -3,11 +3,7 @@ import Cart from "./Cart";
 type Props = {};
 
 const CartPage = (props: Props) => {
-  return (
-    <>
-      <Cart />
-    </>
-  );
+  return <Cart />;
 };
 
 export default CartPage;

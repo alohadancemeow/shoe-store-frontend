@@ -15,22 +15,20 @@ const ProductCard = ({ product }: Props) => {
     >
       <img
         className="w-[500px] h-[500px] object-cover"
-        src={`${process.env.NEXT_PUBLIC_UPLOAD_URL!}${
-          product.attributes?.thumbnail.data.attributes.url
-        }`}
+        src={`${product.attributes?.thumbnail.url}`}
         alt={product.attributes?.name}
       />
       <div className="p-4 text-black/[0.9]">
         <h2 className="text-lg font-medium">{product?.attributes?.name}</h2>
         <div className="flex items-center text-black/[0.5]">
           <p className="mr-2 text-lg font-semibold">
-            &#8377;{product?.attributes?.price}
+            {`฿ ${product?.attributes?.price}`}
           </p>
 
           {product?.attributes?.original_price && (
             <>
               <p className="text-base  font-medium line-through">
-                &#8377;{product?.attributes?.original_price}
+                {`฿ ${product?.attributes?.original_price}`}
               </p>
               <p className="ml-auto text-base font-medium text-green-500">
                 {getDiscountedPricePercentage(

@@ -1,20 +1,22 @@
-import React from "react";
+"use client";
+
 import Link from "next/link";
+import React from "react";
 import { BsChevronDown } from "react-icons/bs";
 
 const data = [
   { id: 1, name: "Home", url: "/" },
-  { id: 2, name: "About", url: "/about" },
+  { id: 2, name: "About", url: "/" },
   { id: 3, name: "Categories", subMenu: true },
-  { id: 4, name: "Contact", url: "/contact" },
+  { id: 4, name: "Contact", url: "/" },
 ];
 
-const subMenuData = [
-  { id: 1, name: "Jordan", doc_count: 11 },
-  { id: 2, name: "Sneakers", doc_count: 8 },
-  { id: 3, name: "Running shoes", doc_count: 64 },
-  { id: 4, name: "Football shoes", doc_count: 107 },
-];
+// const subMenuData = [
+//   { id: 1, name: "Jordan", doc_count: 11 },
+//   { id: 2, name: "Sneakers", doc_count: 8 },
+//   { id: 3, name: "Running shoes", doc_count: 64 },
+//   { id: 4, name: "Football shoes", doc_count: 107 },
+// ];
 
 type Props = {
   showCatMenu: boolean;
@@ -34,7 +36,7 @@ const MenuMobile = ({
       {data.map((item) => {
         return (
           <React.Fragment key={item.id}>
-            {!!item?.subMenu ? (
+            {item.subMenu ? (
               <li
                 className="cursor-pointer py-4 px-5 border-b flex flex-col relative"
                 onClick={() => setShowCatMenu(!showCatMenu)}

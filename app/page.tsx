@@ -7,11 +7,11 @@ import { fetchDataFromApi } from "@/utils/api";
 const Home = async () => {
   const products = await fetchDataFromApi("/products?populate=*");
 
-  console.log(products, "all products");
+  // console.log(products.data, "all products");
 
   return (
     <main>
-      <HeroBanner />
+      <HeroBanner products={products?.data} />
       <Wrapper>
         <div className="text-center max-w-[800px] mx-auto my-[50px] md:my-[80px]">
           <div className="text-[28px] md:text-[34px] mb-5 font-semibold leading-tight">
