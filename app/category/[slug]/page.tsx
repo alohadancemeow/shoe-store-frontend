@@ -1,5 +1,9 @@
-import { fetchDataFromApi } from "@/utils/api";
+import { Suspense } from "react";
 import Category from "./Category";
+import {
+  fetchCategoryBySlug,
+  fetchProductsInCategoryWithLimit,
+} from "@/utils/api";
 
 type Props = {
   params: { slug: string };
@@ -8,17 +12,15 @@ type Props = {
 const maxResult = 3;
 
 const CategoryPage = async ({ params }: Props) => {
-  const category = await fetchDataFromApi(
-    `/categories?filters[slug][$eq]=${params.slug}`
-  );
-  const products = await fetchDataFromApi(
-    `/products?populate=*&[filters][categories][slug][$eq]=${params.slug}&pagination[page]=1&pagination[pageSize]=${maxResult}`
-  );
+  const getCategory = fetchCategoryBySlug(params.slug);
+  const getProducts = fetchProductsInCategoryWithLimit(params.slug, maxResult);
+
+  const [category, products] = await Promise.all([getCategory, getProducts]);
 
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <Category category={category} products={products} slug={params.slug} />
-    </>
+    </Suspense>
   );
 };
 

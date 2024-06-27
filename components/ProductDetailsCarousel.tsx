@@ -2,9 +2,10 @@
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import { DAT } from "@/types";
 
 type Props = {
-  images?: any[];
+  images: DAT[];
 };
 
 const ProductDetailsCarousel = ({ images }: Props) => {
@@ -18,7 +19,7 @@ const ProductDetailsCarousel = ({ images }: Props) => {
         className="productCarousel"
       >
         {images?.map((img) => (
-          <img key={img.id} src={`${img.url}`} alt="image" />
+          <img key={img.id} src={`${img.attributes?.url}`} alt="image" />
         ))}
       </Carousel>
     </div>

@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 import StoreProvider from "@/providers/store-provider";
-import { fetchDataFromApi } from "@/utils/api";
+import { fetchCategories } from "@/utils/api";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,13 +20,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const categories = await fetchDataFromApi("/categories?populate=*");
+  const categories = await fetchCategories();
 
   return (
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
-          <Header categories={categories.data} />
+          <Header categories={categories} />
           {children}
           <Footer />
         </StoreProvider>

@@ -1,5 +1,6 @@
 "use client";
 
+import { CategoriesDatum } from "@/types";
 import Link from "next/link";
 import React from "react";
 import { BsChevronDown } from "react-icons/bs";
@@ -22,7 +23,7 @@ type Props = {
   showCatMenu: boolean;
   setShowCatMenu: React.Dispatch<React.SetStateAction<boolean>>;
   setMobileMenu: React.Dispatch<React.SetStateAction<boolean>>;
-  categories?: any[];
+  categories?: CategoriesDatum[];
 };
 
 const MenuMobile = ({
@@ -61,7 +62,7 @@ const MenuMobile = ({
                           <li className="py-4 px-8 border-t flex justify-between">
                             {c.name}
                             <span className="opacity-50 text-sm">
-                              {`(${c.products.data.length})`}
+                              {`(${c.products?.data?.length || 0})`}
                             </span>
                           </li>
                         </Link>

@@ -2,16 +2,15 @@ import HeroBanner from "@/components/HeroBanner";
 import ProductCard from "@/components/ProductCard";
 import Wrapper from "@/components/Wrapper";
 
-import { fetchDataFromApi } from "@/utils/api";
+import { fetchProducts } from "@/utils/api";
 
 const Home = async () => {
-  const products = await fetchDataFromApi("/products?populate=*");
-
-  // console.log(products.data, "all products");
+  const products = await fetchProducts();
+  // console.log(products, "all products");
 
   return (
     <main>
-      <HeroBanner products={products?.data} />
+      <HeroBanner products={products} />
       <Wrapper>
         <div className="text-center max-w-[800px] mx-auto my-[50px] md:my-[80px]">
           <div className="text-[28px] md:text-[34px] mb-5 font-semibold leading-tight">
@@ -25,7 +24,7 @@ const Home = async () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-14 px-5 md:px-0">
-          {products?.data?.map((product: any) => (
+          {products.map((product: any) => (
             <ProductCard key={product?.id} product={product} />
           ))}
         </div>

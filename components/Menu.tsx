@@ -1,5 +1,6 @@
 "use client";
 
+import { CategoriesDatum } from "@/types";
 import Link from "next/link";
 import { BsChevronDown } from "react-icons/bs";
 
@@ -20,7 +21,7 @@ const data = [
 type Props = {
   showCatMenu: boolean;
   setShowCatMenu: React.Dispatch<React.SetStateAction<boolean>>;
-  categories: any[];
+  categories: CategoriesDatum[];
 };
 
 const Menu = ({ showCatMenu, setShowCatMenu, categories }: Props) => {
@@ -50,7 +51,7 @@ const Menu = ({ showCatMenu, setShowCatMenu, categories }: Props) => {
                           <li className="h-12 flex justify-between items-center px-3 hover:bg-black/[0.03] rounded-md">
                             {c.name}
                             <span className="opacity-50 text-sm">
-                              {`(${c.products.data.length})`}
+                              {`(${c?.products?.data?.length || 0})`}
                             </span>
                           </li>
                         </Link>

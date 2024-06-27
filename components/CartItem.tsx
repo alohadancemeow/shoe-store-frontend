@@ -2,36 +2,36 @@
 
 import Link from "next/link";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { updateCart, removeFromCart } from "@/store/cartSlice";
+import { updateCart, removeFromCart, CartItemType } from "@/store/cartSlice";
 import { useAppDispatch } from "@/store/store";
 
 type Props = {
-  data?: any;
+  data?: CartItemType;
 };
 
 const CartItem = ({ data }: Props) => {
   const dispatch = useAppDispatch();
-  const p = data.attributes;
+  const p = data && data?.attributes;
 
   const updateCartItem = (
     e: React.ChangeEvent<HTMLSelectElement>,
-    key: string
+    key: string | number
   ) => {
     let payload = {
       key,
       val: key === "quantity" ? parseInt(e.target.value) : e.target.value,
-      id: data.id,
+      id: data?.id,
     };
     dispatch(updateCart(payload));
   };
 
   return (
     <div className="flex py-5 gap-3 md:gap-5 border-b">
-      <Link href={`/product/${p.slug}`}>
+      <Link href={`/product/${p?.slug}`}>
         <div className="shrink-0 aspect-square w-[50px] md:w-[120px]">
           <img
-            src={`${p?.thumbnail?.url}`}
-            alt={p.name}
+            src={`${p?.thumbnail?.data?.attributes?.url}`}
+            alt={p?.name}
             className="w-[120px] h-[120px] object-cover"
           />
         </div>
@@ -40,20 +40,20 @@ const CartItem = ({ data }: Props) => {
       <div className="w-full flex flex-col">
         <div className="flex flex-col md:flex-row justify-between">
           <div className="text-lg md:text-2xl font-semibold text-black/[0.8]">
-            {p.name}
+            {p?.name}
           </div>
 
           <div className="text-sm md:text-md font-medium text-black/[0.5] block md:hidden">
-            {p.subtitle}
+            {p?.subtitle}
           </div>
 
           <div className="text-sm md:text-md font-bold text-black/[0.5] mt-2">
-            MRP : {`& ${p.price}`}
+            MRP : {`฿ ${p?.price}`}
           </div>
         </div>
 
         <div className="text-md font-medium text-black/[0.5] hidden md:block">
-          {p.subtitle}
+          {p?.subtitle}
         </div>
 
         <div className="flex items-center justify-between mt-4">
@@ -64,13 +64,13 @@ const CartItem = ({ data }: Props) => {
                 className="hover:text-black"
                 onChange={(e) => updateCartItem(e, "selectedSize")}
               >
-                {p.size.data.map((item: any, i: number) => {
+                {p?.size?.data?.map((item, i) => {
                   return (
                     <option
                       key={i}
                       value={item.size}
                       disabled={!item.enabled ? true : false}
-                      selected={data.selectedSize === item.size}
+                      selected={data?.selectedSize === item.size}
                     >
                       {item.size}
                     </option>
@@ -87,7 +87,7 @@ const CartItem = ({ data }: Props) => {
               >
                 {Array.from({ length: 10 }, (_, i) => i + 1).map((q, i) => {
                   return (
-                    <option key={i} value={q} selected={data.quantity === q}>
+                    <option key={i} value={q} selected={data?.quantity === q}>
                       {q}
                     </option>
                   );
@@ -96,7 +96,7 @@ const CartItem = ({ data }: Props) => {
             </div>
           </div>
           <RiDeleteBin6Line
-            onClick={() => dispatch(removeFromCart({ id: data.id }))}
+            onClick={() => dispatch(removeFromCart({ id: data?.id }))}
             className="cursor-pointer text-black/[0.5] hover:text-black text-[16px] md:text-[20px]"
           />
         </div>

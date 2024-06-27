@@ -5,8 +5,10 @@ import { Carousel } from "react-responsive-carousel";
 import { BiArrowBack } from "react-icons/bi";
 import Link from "next/link";
 
+import { WelcomeDatum } from "@/types";
+
 type Props = {
-  products: any[];
+  products: WelcomeDatum[];
 };
 
 const HeroBanner = ({ products }: Props) => {
@@ -35,10 +37,10 @@ const HeroBanner = ({ products }: Props) => {
           </div>
         )}
       >
-        {products?.map((p: any) => (
-          <div>
+        {products?.map((p) => (
+          <div key={p.id}>
             <img
-              src={`${p?.attributes?.thumbnail?.url}`}
+              src={`${p?.attributes?.thumbnail?.data?.attributes?.url}`}
               className="aspect-[16/10] md:aspect-auto object-cover"
             />
             <Link href={`/product/${p?.attributes?.slug}`}>
