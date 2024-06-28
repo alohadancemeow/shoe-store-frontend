@@ -21,6 +21,9 @@ export const fetchProducts = async () => {
     const url = makeRequest("/products?populate=*");
     const res = await axios.get(url, headers);
 
+    // Revalidate the path after fetching products
+    revalidatePath("/");
+
     return res.data.data as WelcomeDatum[];
   } catch (error) {
     console.log(error);
@@ -32,6 +35,9 @@ export const fetchCategories = async () => {
   try {
     const url = makeRequest("/categories?populate=*");
     const res = await axios.get(url, headers);
+
+    // Revalidate the path after fetching categories
+    revalidatePath("/category/[slug]");
 
     return res.data.data as CategoriesDatum[];
   } catch (error) {
@@ -114,6 +120,3 @@ export const makePaymentRequest = async (endpoint: string, payload: any) => {
     console.log(error);
   }
 };
-
-// Revalidate the path after fetching products
-revalidatePath("/");
