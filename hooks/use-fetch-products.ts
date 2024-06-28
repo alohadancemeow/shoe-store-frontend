@@ -1,10 +1,10 @@
 import useSWR from "swr";
 import { Welcome } from "@/types";
-import { headers, makeRequest } from "@/utils/api";
+import { getHeaders, makeRequest } from "@/utils/helper";
 
 const maxResult = 3;
 
-const fetcher = (url: string) => fetch(url, headers).then((r) => r.json());
+const fetcher = (url: string) => fetch(url, getHeaders()).then((r) => r.json());
 
 const useFetchProducts = (slug: string, pageIndex: number = 1) => {
   const url = makeRequest(

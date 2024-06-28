@@ -1,25 +1,15 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import axios from "axios";
+import { revalidatePath } from "next/cache";
 import { CategoriesDatum, WelcomeDatum } from "@/types";
-
-// Function to create the full request URL
-export const makeRequest = (endpoint: string) => {
-  return `${process.env.NEXT_PUBLIC_API_URL!}${endpoint}`;
-};
-
-export const headers = {
-  headers: {
-    Authorization: "Bearer " + process.env.NEXT_PUBLIC_STRAPI_API_TOKEN!,
-  },
-};
+import { getHeaders, makeRequest } from "./helper";
 
 // Function to fetch data from the API
 export const fetchProducts = async () => {
   try {
     const url = makeRequest("/products?populate=*");
-    const res = await axios.get(url, headers);
+    const res = await axios.get(url, getHeaders());
 
     // Revalidate the path after fetching products
     revalidatePath("/");
@@ -34,7 +24,7 @@ export const fetchProducts = async () => {
 export const fetchCategories = async () => {
   try {
     const url = makeRequest("/categories?populate=*");
-    const res = await axios.get(url, headers);
+    const res = await axios.get(url, getHeaders());
 
     // Revalidate the path after fetching categories
     revalidatePath("/category/[slug]");
@@ -53,7 +43,7 @@ export const fetchCategories = async () => {
 export const fetchCategoryBySlug = async (slug: string) => {
   try {
     const url = makeRequest(`/categories?filters[slug][$eq]=${slug}`);
-    const res = await axios.get(url, headers);
+    const res = await axios.get(url, getHeaders());
 
     return res.data.data[0] as CategoriesDatum;
   } catch (error) {
@@ -65,7 +55,7 @@ export const fetchCategoryBySlug = async (slug: string) => {
 export const fetchProductBySlug = async (slug: string) => {
   try {
     const url = makeRequest(`/products?populate=*&filters[slug][$eq]=${slug}`);
-    const res = await axios.get(url, headers);
+    const res = await axios.get(url, getHeaders());
 
     return res.data.data[0] as WelcomeDatum;
   } catch (error) {
@@ -77,7 +67,7 @@ export const fetchProductBySlug = async (slug: string) => {
 export const fetchOtherProducts = async (slug: string) => {
   try {
     const url = makeRequest(`/products?populate=*&filters[slug][$ne]=${slug}`);
-    const res = await axios.get(url, headers);
+    const res = await axios.get(url, getHeaders());
 
     return res.data.data as WelcomeDatum[];
   } catch (error) {
@@ -94,7 +84,7 @@ export const fetchProductsInCategoryWithLimit = async (
     const url = makeRequest(
       `/products?populate=*&[filters][categories][slug][$eq]=${slug}&pagination[page]=1&pagination[pageSize]=${limit}`
     );
-    const res = await axios.get(url, headers);
+    const res = await axios.get(url, getHeaders());
 
     return res.data.data as WelcomeDatum[];
   } catch (error) {
