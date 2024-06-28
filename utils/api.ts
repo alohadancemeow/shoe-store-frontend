@@ -11,8 +11,12 @@ export const fetchProducts = async () => {
     const url = makeRequest("/products?populate=*");
     const res = await axios.get(url, getHeaders());
 
-    // Revalidate the path after fetching products
-    revalidatePath("/");
+    /**
+     * Revalidating All Data.
+     * This will purge the Client-side Router Cache,
+     * and revalidate the Data Cache on the next page visit.
+     */
+    revalidatePath("/", "layout");
 
     return res.data.data as WelcomeDatum[];
   } catch (error) {
@@ -27,7 +31,7 @@ export const fetchCategories = async () => {
     const res = await axios.get(url, getHeaders());
 
     // Revalidate the path after fetching categories
-    revalidatePath("/category/[slug]");
+    revalidatePath("/category/[slug]", "page");
 
     return res.data.data as CategoriesDatum[];
   } catch (error) {
