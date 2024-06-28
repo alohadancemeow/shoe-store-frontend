@@ -1,3 +1,6 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
 import axios from "axios";
 import { CategoriesDatum, WelcomeDatum } from "@/types";
 
@@ -111,3 +114,6 @@ export const makePaymentRequest = async (endpoint: string, payload: any) => {
     console.log(error);
   }
 };
+
+// Revalidate the path after fetching products
+revalidatePath("/");
